@@ -88,8 +88,8 @@ We provide a `make` utility for easy management:
 
 ## 📡 API Reference
 
-**Base URL**: `http://localhost:8000/api/v1`
-**Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
+**Base URL**: `http://13.204.240.244:8000/api/v1`
+**Documentation**: [http://13.204.240.244:8000/docs](http://13.204.240.244:8000/docs)
 
 ### Authentication
 All endpoints require an API Key header.
@@ -107,57 +107,11 @@ All endpoints require an API Key header.
 
 #### Example Use (cURL)
 ```bash
-curl -X GET "http://localhost:8000/api/v1/health" -H "x-api-key: secret-key"
+curl -X GET "http://13.204.240.244:8000/api/v1/health" -H "x-api-key: secret-key"
 ```
 
 ---
 
-## ☁️ AWS Deployment Guide
-
-Deploying this system to an AWS EC2 instance.
-
-### 1. Launch Instance
-- **AMI**: Ubuntu Server 22.04 LTS
-- **Type**: t2.micro (Free tier eligible)
-- **Security Group**: Allow SSH (22) and **Custom TCP (8000)** from Anywhere (`0.0.0.0/0`).
-
-### 2. Connect & Install
-SSH into your instance:
-```bash
-ssh -i "your-key.pem" ubuntu@<YOUR_EC2_IP>
-```
-
-Install Docker & Compose:
-```bash
-sudo apt update && sudo apt install -y docker.io docker-compose
-sudo usermod -aG docker ubuntu
-newgrp docker
-```
-
-### 3. Deploy Code
-From your **local machine**, copy the project files:
-```powershell
-# Copy config and scripts
-scp -i "key.pem" docker-compose.prod.yml ubuntu@<IP>:~/docker-compose.yml
-scp -i "key.pem" .env Dockerfile requirements.txt trigger_on_start.py ubuntu@<IP>:~/
-
-# Copy source code directories
-scp -i "key.pem" -r api core ingestion schemas services tests Makefile ubuntu@<IP>:~/
-```
-
-### 4. Start Application
-On the **server**:
-```bash
-docker-compose up -d --build
-```
-
-### 5. Static IP (Elastic IP)
-To prevent the IP from changing on restart:
-1.  **AWS Console** > **Elastic IPs** > **Allocate**.
-2.  **Actions** > **Associate Elastic IP** > Select your Instance.
-3.  Use this new IP for all future connections.
-
----
 
 ## 🛠️ Configuration
 
