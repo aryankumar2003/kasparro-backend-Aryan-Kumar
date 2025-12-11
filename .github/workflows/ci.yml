@@ -39,5 +39,8 @@ jobs:
         DATABASE_URL: postgresql://user:password@localhost:5432/ingestion_db
         COINPAPRIKA_API_URL: https://api.coinpaprika.com/v1
         COIN_IDS: '["btc-bitcoin"]'
+        # Added required secrets for tests
+        API_KEY: "test-secret-key"
+        COINGECKO_API_KEY: "test-cg-key"
       run: |
         pytest
