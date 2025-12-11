@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ingestion_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-ingestion_db}
     ports:
       - "5432:5432"
     volumes:
@@ -22,8 +22,8 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DATABASE_URL: postgresql://user:password@db:5432/ingestion_db
-      COINPAPRIKA_API_URL: https://api.coinpaprika.com/v1
+      DATABASE_URL: ${DATABASE_URL}
+      COINPAPRIKA_API_URL: ${COINPAPRIKA_API_URL:-https://api.coinpaprika.com/v1}
       COIN_IDS: '["btc-bitcoin", "eth-ethereum"]'
       LOG_LEVEL: INFO
     depends_on:

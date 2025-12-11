@@ -24,6 +24,7 @@ MANIFEST
 
 # Virtual Environments
 .env
+.env.prod
 .venv
 env/
 venv/

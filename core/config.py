@@ -5,14 +5,15 @@ from pydantic import Field
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Data Ingestion System"
     API_V1_STR: str = "/api/v1"
-    API_KEY: str = Field(default="secret-key", description="API Key for authentication")
+    API_KEY: str = Field(..., description="API Key for authentication")
     
     # Database
-    DATABASE_URL: str = Field(default="postgresql://user:password@localhost:5432/ingestion_db", description="Database connection string")
+    DATABASE_URL: str = Field(..., description="Database connection string")
     
     # Ingestion Settings
     COINPAPRIKA_API_URL: str = "https://api.coinpaprika.com/v1"
     COINPAPRIKA_API_KEY: str = Field(default="", description="Optional API Key for CoinPaprika")
+    COINGECKO_API_KEY: str = Field(default="", description="Optional API Key for CoinGecko")
     COIN_IDS: list[str] = Field(default=["btc-bitcoin"], description="List of Coin IDs to fetch")
     
     # Monitoring
